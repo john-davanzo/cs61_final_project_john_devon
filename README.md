@@ -1,7 +1,8 @@
 # COSC 61 Final Project - Movie Analysis
 This repo contains the materials for the final project of Devon Starr and John D'Avanzo for COSC 61 @ Dartmouth 23X.
 
-## Our dataset we found on kaggle contains `movies`, each with the following attributes:
+## Original Dataset Description
+ Our dataset we found on kaggle contains 4803 `movies`, each with the following attributes:
 
 * `index` - row number, starts at 0
 * `budget`
@@ -13,7 +14,7 @@ This repo contains the materials for the final project of Devon Starr and John D
 * `original_title` - title of the movie
 * `overview` - brief description of the movie
 * `popularity` - strange popularity index (highest is around 900, lowest is around 0)
-* 
+
 
 # Example Questions
 
