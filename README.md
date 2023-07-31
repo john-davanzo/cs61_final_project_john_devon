@@ -1,7 +1,7 @@
 # COSC 61 Final Project - Movie Analysis
 This repo contains the materials for the final project of Devon Starr and John D'Avanzo for COSC 61 @ Dartmouth 23X.
 
-Our dataset we found on kaggle contains `movies`, each with the following attributes:
+## Our dataset we found on kaggle contains `movies`, each with the following attributes:
 
 * `index` - row number, starts at 0
 * `budget`
@@ -15,3 +15,11 @@ Our dataset we found on kaggle contains `movies`, each with the following attrib
 * `popularity` - strange popularity index (highest is around 900, lowest is around 0)
 * 
 
+# Example Questions
+
+## The following are 4 questions which exemplify what can be done with the given dataset:
+
+1. Which movie genres are the most popular and where?
+2. Is there a correlation between budget and popularity?
+3. Do movies with high spend usually have proportionately higher returns?
+4. How did the Covid pandemic impact movie revenue in different countries?
