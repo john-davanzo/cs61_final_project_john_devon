@@ -13,6 +13,7 @@ Using the ERD feature on MySQLWorkbench we have already generated the following 
 `movies`, `outcomes`, `directors`, `movie_keyword`, `keywords`, `movie_genre`, `genres`, `movie_company`, `companies`, `movie_country`, `countries`, `languages`
 
 ![](data/initial_erd.png)
+[Link to mwb file](data/initial_erd.mwb)
 
 ## Specific Table Construction
 
