@@ -12,6 +12,8 @@ Using the ERD feature on MySQLWorkbench we have already generated the following 
 
 `movies`, `outcomes`, `directors`, `movie_keyword`, `keywords`, `movie_genre`, `genres`, `movie_company`, `companies`, `movie_country`, `countries`, `languages`
 
+![](data/initial_erd.png)
+
 ## Specific Table Construction
 
 Then, each of the tables will be constructed using the `ALTER TABLE` command to add each of the attributes. Then we will use the `INSERT INTO` command to insert values into the tables from the main movies table. Certain of the tables will require extra parsing/data cleaning to create, like the countries and companies tables. 
