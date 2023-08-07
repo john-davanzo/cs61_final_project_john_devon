@@ -1,6 +1,8 @@
 # COSC 61 Final Project - Movie Analysis
 This repo contains the materials for the final project of Devon Starr and John D'Avanzo for COSC 61 @ Dartmouth 23X.
 
+# Project Milestone 1
+
 ## Original Dataset Description
  Our dataset we found on kaggle contains 4803 `movies`, each with the following attributes:
 
@@ -24,3 +26,8 @@ This repo contains the materials for the final project of Devon Starr and John D
 2. Is there a correlation between budget and popularity?
 3. Do movies with high spend usually have proportionately higher returns?
 4. How did the Covid pandemic impact movie revenue in different countries?
+
+
+# Milestone 2
+
+![](./initial_erd.png)
