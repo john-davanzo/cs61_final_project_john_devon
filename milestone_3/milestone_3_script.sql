@@ -129,4 +129,17 @@ CREATE TABLE IF NOT EXISTS movie_country (
   PRIMARY KEY (movie_id, country_id),
   FOREIGN KEY (movie_id) REFERENCES movies(movie_id),
   FOREIGN KEY (country_id) REFERENCES countries(country_id));
+  
+  
+SET GLOBAL local_infile = 1;
+
+CREATE TABLE IF NOT EXISTS original_movie_data(
+  movie_id INT NOT NULL);
+
+
+LOAD DATA LOCAL INFILE './data.csv'
+INTO TABLE original_movie_data
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n';
 
