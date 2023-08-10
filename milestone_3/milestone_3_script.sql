@@ -133,11 +133,35 @@ CREATE TABLE IF NOT EXISTS movie_country (
   
 SET GLOBAL local_infile = 1;
 
+DROP TABLE original_movie_data;
 CREATE TABLE IF NOT EXISTS original_movie_data(
-  movie_id INT NOT NULL);
+  index_ INT,
+  budget INT,
+  genres varchar(200),
+  homepage varchar(100),
+  id INT,
+  keywords varchar(200),
+  original_langauge varchar(200),
+  original_title varchar(200),
+  overview longtext,
+  popularity double,
+  production_companies json,
+  production_countries varchar(500),
+  release_date date,
+  revenue INT,
+  runtime double,
+  spoken_languages varchar(500),
+  status_ varchar(50),
+  tagline varchar(200),
+  title varchar(200),
+  vote_average double,
+  vote_count int,
+  cast_ varchar(1000),
+  crew varchar(500),
+  director varchar(200));
 
 
-LOAD DATA LOCAL INFILE './data.csv'
+LOAD DATA LOCAL INFILE '/Users/johndavanzo/Documents/GitHub/cs61_final_project_john_devon/data/movie_dataset.csv'
 INTO TABLE original_movie_data
 FIELDS TERMINATED BY ','
 ENCLOSED BY '"'
