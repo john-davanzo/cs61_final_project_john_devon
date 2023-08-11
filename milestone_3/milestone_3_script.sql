@@ -1,12 +1,17 @@
 -- RESET SEQUENCE
-DROP TABLE movie_genre;
-DROP TABLE outcomes;
-DROP TABLE movie_keyword;
-DROP TABLE movie_company;
-DROP TABLE movie_country;
-DROP TABLE movies;
-DROP TABLE languages;
-DROP TABLE genres;
+
+DROP TABLE IF EXISTS movie_genre;
+DROP TABLE IF EXISTS outcomes;
+DROP TABLE IF EXISTS movie_keyword;
+DROP TABLE IF EXISTS movie_company;
+DROP TABLE IF EXISTS movie_country;
+DROP TABLE IF EXISTS movies;
+DROP TABLE IF EXISTS directors;
+DROP TABLE IF EXISTS languages;
+DROP TABLE IF EXISTS genres;
+DROP TABLE IF EXISTS companies;
+DROP TABLE IF EXISTS countries;
+DROP TABLE IF EXISTS keywords;
 
 
 -- Creating the schema and tables...
@@ -20,7 +25,7 @@ USE movies;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS directors (
   director_id INT NOT NULL AUTO_INCREMENT,
-  director VARCHAR(45) NULL,
+  director VARCHAR(500) NULL,
   PRIMARY KEY (director_id));
 
 
@@ -172,25 +177,25 @@ LINES TERMINATED BY '\n'
 IGNORE 1 LINES;
 
 -- DROP TABLE data_2;
-CREATE TABLE IF NOT EXISTS data_2(
-  index_ INT,
-  production_companies JSON,
-  production_countries JSON);
-  
-LOAD DATA LOCAL INFILE '/Users/johndavanzo/Documents/GitHub/cs61_final_project_john_devon/data/data_final/Sheet 2-Table 1.csv'
-INTO TABLE data_2
-FIELDS TERMINATED BY ','
-ENCLOSED BY '"'
-LINES TERMINATED BY '\n';
+-- CREATE TABLE IF NOT EXISTS data_2(
+--   index_ INT,
+--   production_companies JSON,
+--   production_countries JSON);
+--   
+-- LOAD DATA LOCAL INFILE '/Users/johndavanzo/Documents/GitHub/cs61_final_project_john_devon/data/data_final/Sheet 2-Table 1.csv'
+-- INTO TABLE data_2
+-- FIELDS TERMINATED BY ','
+-- ENCLOSED BY '"'
+-- LINES TERMINATED BY '\n';
 
 
 INSERT INTO languages (language)
 SELECT DISTINCT original_language
 FROM data_1;
 
-INSERT INTO directors (director)
-SELECT DISTINCT director
-FROM data_1;
+-- INSERT INTO directors (director)
+-- SELECT DISTINCT director
+-- FROM data_1;
 
 INSERT INTO movies (movie_id, title, overview, runtime, release_date)
 SELECT index_, title, overview, runtime, release_date
@@ -199,10 +204,6 @@ FROM data_1;
 -- Update 'genres' column to lowercase and replace "science fiction" with "science_fiction"
 UPDATE data_1
 SET genres = REPLACE(LOWER(genres), 'science fiction', 'science_fiction');
-
-
-DROP TABLE genres;
-DROP TABLE movie_genre;
 
 
 -- Insert distinct genres into the 'genres' table
@@ -239,6 +240,10 @@ ON CHAR_LENGTH(m.keywords)
 WHERE TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(m.keywords, ' ', n.n), ' ', -1)) <> ''
 ORDER BY keyword;
 
+INSERT INTO directors (director)
+SELECT DISTINCT director
+FROM data_1
+ORDER BY director;
 
 
 
