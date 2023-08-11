@@ -1,4 +1,16 @@
+-- RESET SEQUENCE
+DROP TABLE movie_genre;
+DROP TABLE outcomes;
+DROP TABLE movie_keyword;
+DROP TABLE movie_company;
+DROP TABLE movie_country;
+DROP TABLE movies;
+DROP TABLE languages;
+DROP TABLE genres;
+
+
 -- Creating the schema and tables...
+
 
 CREATE SCHEMA IF NOT EXISTS movies;
 USE movies;
@@ -31,7 +43,7 @@ CREATE TABLE IF NOT EXISTS movies (
   director_id INT NULL,
   language_id INT NULL,
   runtime FLOAT NULL,
-  release_date DATE NULL,
+  release_date VARCHAR(50) NULL,
   PRIMARY KEY (movie_id),
   FOREIGN KEY (director_id) REFERENCES directors(director_id),
   FOREIGN KEY (language_id) REFERENCES languages(language_id));
@@ -133,37 +145,107 @@ CREATE TABLE IF NOT EXISTS movie_country (
   
 SET GLOBAL local_infile = 1;
 
-DROP TABLE original_movie_data;
-CREATE TABLE IF NOT EXISTS original_movie_data(
+
+
+DROP TABLE data_1;
+CREATE TABLE IF NOT EXISTS data_1(
   index_ INT,
   budget INT,
   genres varchar(200),
-  homepage varchar(100),
-  id INT,
   keywords varchar(200),
-  original_langauge varchar(200),
-  original_title varchar(200),
+  original_language varchar(200),
   overview longtext,
   popularity double,
-  production_companies json,
-  production_countries varchar(500),
-  release_date date,
+  release_date varchar(50),
   revenue INT,
   runtime double,
-  spoken_languages varchar(500),
-  status_ varchar(50),
-  tagline varchar(200),
   title varchar(200),
   vote_average double,
   vote_count int,
-  cast_ varchar(1000),
-  crew varchar(500),
   director varchar(200));
+  
+LOAD DATA LOCAL INFILE '/Users/johndavanzo/Documents/GitHub/cs61_final_project_john_devon/data/data_final/data_1.csv'
+INTO TABLE data_1
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES;
 
-
-LOAD DATA LOCAL INFILE '/Users/johndavanzo/Documents/GitHub/cs61_final_project_john_devon/data/movie_dataset.csv'
-INTO TABLE original_movie_data
+-- DROP TABLE data_2;
+CREATE TABLE IF NOT EXISTS data_2(
+  index_ INT,
+  production_companies JSON,
+  production_countries JSON);
+  
+LOAD DATA LOCAL INFILE '/Users/johndavanzo/Documents/GitHub/cs61_final_project_john_devon/data/data_final/Sheet 2-Table 1.csv'
+INTO TABLE data_2
 FIELDS TERMINATED BY ','
 ENCLOSED BY '"'
 LINES TERMINATED BY '\n';
+
+
+INSERT INTO languages (language)
+SELECT DISTINCT original_language
+FROM data_1;
+
+INSERT INTO directors (director)
+SELECT DISTINCT director
+FROM data_1;
+
+INSERT INTO movies (movie_id, title, overview, runtime, release_date)
+SELECT index_, title, overview, runtime, release_date
+FROM data_1;
+
+-- Update 'genres' column to lowercase and replace "science fiction" with "science_fiction"
+UPDATE data_1
+SET genres = REPLACE(LOWER(genres), 'science fiction', 'science_fiction');
+
+
+DROP TABLE genres;
+DROP TABLE movie_genre;
+
+
+-- Insert distinct genres into the 'genres' table
+INSERT INTO genres (genre)
+SELECT DISTINCT SUBSTRING_INDEX(SUBSTRING_INDEX(m.genres, ' ', n.n), ' ', -1) AS genre
+FROM data_1 m
+JOIN (
+  SELECT 1 AS n UNION ALL
+  SELECT 2 UNION ALL
+  SELECT 3 UNION ALL
+  SELECT 4 UNION ALL
+  SELECT 5 -- Add more numbers as needed
+) n
+ON CHAR_LENGTH(m.genres)
+    -CHAR_LENGTH(REPLACE(m.genres, ' ', '')) >= n.n - 1
+WHERE TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(m.genres, ' ', n.n), ' ', -1)) <> ''
+ORDER BY genre;
+
+
+
+-- Insert distinct keywords into the 'keywords' table
+INSERT INTO keywords (keyword)
+SELECT DISTINCT SUBSTRING_INDEX(SUBSTRING_INDEX(m.keywords, ' ', n.n), ' ', -1) AS keyword
+FROM data_1 m
+JOIN (
+  SELECT 1 AS n UNION ALL
+  SELECT 2 UNION ALL
+  SELECT 3 UNION ALL
+  SELECT 4 UNION ALL
+  SELECT 5 -- Add more numbers as needed
+) n
+ON CHAR_LENGTH(m.keywords)
+    -CHAR_LENGTH(REPLACE(m.keywords, ' ', '')) >= n.n - 1
+WHERE TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(m.keywords, ' ', n.n), ' ', -1)) <> ''
+ORDER BY keyword;
+
+
+
+
+
+
+
+
+
+
 
