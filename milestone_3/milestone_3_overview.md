@@ -19,7 +19,31 @@ IGNORE 1 LINES;
 ```
 ## Decomposition After Importation
 * Handling JSON text in `production_companies` and `production_countries` fields
-    * HELLO TESTING
+    * Given the inconsistent nature of the JSON text, we decided to write a script to decompose the JSON text as a varchar object. The general syntax for the script we wrote is as follows:
+
+    ```
+    CREATE TABLE extracted_data (
+    movie_id INT,
+    variable_name VARCHAR(255),
+    variable_id INT
+    );
+
+    INSERT INTO extracted_data (movie_id, variable_name, variable_id)
+    SELECT index_,
+    SUBSTRING(
+        original_attribute,
+        position('name": "' IN original_attribute) + 8,
+        position('"' IN SUBSTRING(original_attribute, position('name": "' IN original_attribue) + 8)) - 1
+    ) AS variable_name,
+    CAST(
+        SUBSTRING(
+            original_attribute,
+            position('"id": ' IN original_attribute) + 6,
+            position('}' IN SUBSTRING(original_attribute, position('"id": ' IN original_attribute) + 6)) - 1
+        ) AS DOUBLE
+    ) AS variable_id
+    FROM data_2;
+    ```
 
 ## General Cleaning
 *  Cleaned the `genres` field so that 'science fiction' is read as 'science_fiction' rather than 'science' and 'fiction'
