@@ -44,6 +44,30 @@ IGNORE 1 LINES;
     ) AS variable_id
     FROM data_2;
     ```
+* Handling multi-valued varchar attributes in `keywords` and `genres` fields
+    * The `keywords` and `genres` fields were multivalued varchar attributes, where each was listed in each record as a series of keywords and genres separated by spaces. This necessitated a script to parse each of the fields and convert them into long form. The general syntax for the script we wrote is as follows:
+    ```
+    CREATE TABLE keyword_long (
+    movie_id INT,
+    variable_long VARCHAR(255)
+    );
+    -- Step 2: Populate the new table with separate genre records
+    INSERT INTO variable_long (movie_id, variables_long)
+    SELECT
+        index_,
+        TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(variables, ' ', n.n), ' ', -1)) AS variables_long
+    FROM data_1
+    JOIN (
+        SELECT 1 AS n UNION ALL
+        SELECT 2 UNION ALL
+        SELECT 3 UNION ALL
+        SELECT 4 UNION ALL
+        SELECT 5 -- Add more numbers as needed
+    ) n
+    ON CHAR_LENGTH(keywords) - CHAR_LENGTH(REPLACE(keywords, ' ', '')) >= n.n - 1
+    WHERE TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(keywords, ' ', n.n), ' ', -1)) <> '';
+
+    ```
 
 ## General Cleaning
 *  Cleaned the `genres` field so that 'science fiction' is read as 'science_fiction' rather than 'science' and 'fiction'
@@ -60,6 +84,12 @@ Did you update the data in csv or other format before import?
 Did you decompose data after import?
 What, if any, data changes did you have to make to address any issues?
 
+
+
+
+
+
+# THIS IS THE OLD FILE (TO BE DELETED)
 
 
 Below are the details of how we plan to implement our databse design in accordance with our preliminary ERD.
