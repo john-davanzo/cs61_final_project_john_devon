@@ -4,7 +4,6 @@
 -- -----------------------------------------------------
 -- RESET SEQUENCE
 -- -----------------------------------------------------
-
 DROP TABLE IF EXISTS movie_genre;
 DROP TABLE IF EXISTS outcomes;
 DROP TABLE IF EXISTS movie_keyword;
@@ -23,30 +22,27 @@ DROP TABLE IF EXISTS keyword_long;
 DROP TABLE IF EXISTS keyword_temp;
 DROP TABLE IF EXISTS extracted_company_data;
 DROP TABLE IF EXISTS extracted_country_data;
-
--- Creating the schema and tables...
-
+-- -----------------------------------------------------
+-- Creating and selecting the schema
+-- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS movies;
 USE movies;
-
 -- -----------------------------------------------------
--- `directors` table
+-- Creating the `directors` table
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS directors (
   director_id INT NOT NULL AUTO_INCREMENT,
   director VARCHAR(500) NULL,
   PRIMARY KEY (director_id));
-
 -- -----------------------------------------------------
--- `languages` table
+-- Creating the `languages` table
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS languages (
   language_id INT NOT NULL AUTO_INCREMENT,
   language VARCHAR(45) NULL,
   PRIMARY KEY (language_id));
-
 -- -----------------------------------------------------
--- `movies` table
+-- Creating the `movies` table
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS movies (
   movie_id INT NOT NULL,
@@ -61,17 +57,15 @@ CREATE TABLE IF NOT EXISTS movies (
   PRIMARY KEY (movie_id),
   FOREIGN KEY (director_id) REFERENCES directors(director_id),
   FOREIGN KEY (language_id) REFERENCES languages(language_id));
-
 -- -----------------------------------------------------
--- `genres` table
+-- Creating the `genres` table
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS genres (
   genre_id INT NOT NULL AUTO_INCREMENT,
   genre VARCHAR(45) NULL,
   PRIMARY KEY (genre_id));
-
 -- -----------------------------------------------------
--- `movie_genre` table
+-- Creating the `movie_genre` table
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS movie_genre (
   movie_id INT NOT NULL,
@@ -79,9 +73,8 @@ CREATE TABLE IF NOT EXISTS movie_genre (
   PRIMARY KEY (movie_id, genre_id),
   FOREIGN KEY (movie_id) REFERENCES movies(movie_id),
   FOREIGN KEY (genre_id) REFERENCES genres(genre_id));
-
 -- -----------------------------------------------------
--- `outcomes` table
+-- Creating the `outcomes` table
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS outcomes (
   movie_id INT NOT NULL,
@@ -92,17 +85,15 @@ CREATE TABLE IF NOT EXISTS outcomes (
   vote_count INT NULL,
   PRIMARY KEY (movie_id),
   FOREIGN KEY (movie_id) REFERENCES movies(movie_id));
-
 -- -----------------------------------------------------
--- `keywords` table
+-- Creating the `keywords` table
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS keywords (
   keyword_id INT NOT NULL AUTO_INCREMENT,
   keyword VARCHAR(45) NULL,
   PRIMARY KEY (keyword_id));
-
 -- -----------------------------------------------------
--- `movie_keyword` table
+-- Creating the `movie_keyword` table
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS movie_keyword (
   movie_id INT NOT NULL,
@@ -110,17 +101,15 @@ CREATE TABLE IF NOT EXISTS movie_keyword (
   PRIMARY KEY (movie_id, keyword_id),
   FOREIGN KEY (movie_id) REFERENCES movies(movie_id),
   FOREIGN KEY (keyword_id) REFERENCES keywords(keyword_id));
-
 -- -----------------------------------------------------
--- `companies` table
+-- Creating the `companies` table
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS companies (
   company_id INT NOT NULL,
   company VARCHAR(100) NULL,
   PRIMARY KEY (company_id));
-
 -- -----------------------------------------------------
--- `movie_company` table
+-- Creating the `movie_company` table
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS movie_company (
   movie_id INT NOT NULL,
@@ -128,17 +117,15 @@ CREATE TABLE IF NOT EXISTS movie_company (
   PRIMARY KEY (movie_id, company_id),
   FOREIGN KEY (movie_id) REFERENCES movies(movie_id),
   FOREIGN KEY (company_id) REFERENCES companies(company_id));
-
 -- -----------------------------------------------------
--- `countries` table
+-- Creating the `countries` table
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS countries (
   country_id VARCHAR(10) NOT NULL,
   country VARCHAR(100) NULL,
   PRIMARY KEY (country_id));
-
 -- -----------------------------------------------------
--- `movie_country` table
+-- Creating the `movie_country` table
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS movie_country (
   movie_id INT NOT NULL,
@@ -146,11 +133,10 @@ CREATE TABLE IF NOT EXISTS movie_country (
   PRIMARY KEY (movie_id, country_id),
   FOREIGN KEY (movie_id) REFERENCES movies(movie_id),
   FOREIGN KEY (country_id) REFERENCES countries(country_id));
-  
 -- -----------------------------------------------------
--- Loading in the data
+-- Creating tables to load in cleaned data
 -- -----------------------------------------------------
-SET GLOBAL local_infile = 1;
+-- data_1
 DROP TABLE IF EXISTS data_1;
 CREATE TABLE IF NOT EXISTS data_1(
   index_ INT,
@@ -167,8 +153,17 @@ CREATE TABLE IF NOT EXISTS data_1(
   vote_average double,
   vote_count int,
   director varchar(200));
-  
-
+-- data_2
+DROP TABLE IF EXISTS data_2;
+CREATE TABLE IF NOT EXISTS data_2(
+   index_ INT,
+   production_companies varchar(1000),
+   production_countries varchar(1000));
+-- -----------------------------------------------------
+-- Loading in the data
+-- -----------------------------------------------------
+-- data_1
+SET GLOBAL local_infile = 1;
 LOAD DATA LOCAL INFILE '/Users/johndavanzo/Documents/GitHub/cs61_final_project_john_devon/data/data_cleaned/data_1.csv'
 INTO TABLE data_1
 FIELDS TERMINATED BY ','
@@ -176,39 +171,30 @@ ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 LINES;
 
-DROP TABLE IF EXISTS data_2;
-CREATE TABLE IF NOT EXISTS data_2(
-   index_ INT,
-   production_companies varchar(1000),
-   production_countries varchar(1000));
-  
+-- data_2
 LOAD DATA LOCAL INFILE '/Users/johndavanzo/Documents/GitHub/cs61_final_project_john_devon/data/data_cleaned/data_2.csv'
 INTO TABLE data_2
 FIELDS TERMINATED BY ','
 ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 LINES;
-
 -- -----------------------------------------------------
 -- Filling the 'langauges' table
 -- -----------------------------------------------------
 INSERT INTO languages (language)
 SELECT DISTINCT original_language
 FROM data_1;
-
 -- -----------------------------------------------------
 -- Filling the 'movies' table
 -- -----------------------------------------------------
 INSERT INTO movies (movie_id, title, overview, runtime, release_date, director, language_)
 SELECT index_, title, overview, runtime, release_date, director, original_language
 FROM data_1;
-
 -- -----------------------------------------------------
 -- Cleaing up; 'genres' column to lowercase and replacing "science fiction" with "science_fiction"
 -- -----------------------------------------------------
 UPDATE data_1
 SET genres = REPLACE(LOWER(genres), 'science fiction', 'science_fiction');
-
 -- -----------------------------------------------------
 -- Filling the 'directors' table
 -- -----------------------------------------------------
@@ -216,16 +202,14 @@ INSERT INTO directors (director)
 SELECT DISTINCT director
 FROM data_1
 ORDER BY director;
-
 -- -----------------------------------------------------
--- Getting the genres in long form
+-- Parsing the genre attribute into long form
 -- -----------------------------------------------------
 -- Step 1: Create the new table
 CREATE TABLE genre_long (
     movie_id INT,
     genres_long VARCHAR(255)
 );
-
 -- Step 2: Populate the new table with separate genre records
 INSERT INTO genre_long (movie_id, genres_long)
 SELECT
@@ -241,23 +225,20 @@ JOIN (
 ) n
 ON CHAR_LENGTH(genres) - CHAR_LENGTH(REPLACE(genres, ' ', '')) >= n.n - 1
 WHERE TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(genres, ' ', n.n), ' ', -1)) <> '';
-
 -- -----------------------------------------------------
 -- Inserting distinct genres into the 'genre' table
 -- -----------------------------------------------------
 INSERT INTO genres (genre)
 SELECT DISTINCT genres_long
 FROM genre_long;
-
 -- -----------------------------------------------------
--- Getting the keywords in long form
+-- Parsing the keywords attribute into long form
 -- -----------------------------------------------------
 -- Step 1: Create the new table
 CREATE TABLE keyword_long (
     movie_id INT,
     keywords_long VARCHAR(255)
 );
-
 -- Step 2: Populate the new table with separate genre records
 INSERT INTO keyword_long (movie_id, keywords_long)
 SELECT
@@ -273,21 +254,18 @@ JOIN (
 ) n
 ON CHAR_LENGTH(keywords) - CHAR_LENGTH(REPLACE(keywords, ' ', '')) >= n.n - 1
 WHERE TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(keywords, ' ', n.n), ' ', -1)) <> '';
-
 -- -----------------------------------------------------
 -- Inserting distinct keywords into the 'keywords' table
 -- -----------------------------------------------------
 INSERT INTO keywords (keyword)
 SELECT DISTINCT keywords_long
 FROM keyword_long;
-
 -- -----------------------------------------------------
 -- Filling the 'outcomes' table
 -- -----------------------------------------------------
 INSERT INTO outcomes (movie_id, budget, revenue, popularity, vote_avg, vote_count)
 SELECT index_, budget, revenue, popularity, vote_average, vote_count
 FROM data_1;
-
 -- -----------------------------------------------------
 -- FIlling the 'movie_genre' table
 -- -----------------------------------------------------
@@ -296,7 +274,6 @@ SELECT movie_id, genre_id
 FROM genre_long
 JOIN genres ON genre_long.genres_long = genres.genre;
 DROP TABLE IF EXISTS genre_long;
-
 -- -----------------------------------------------------
 -- FIlling the 'movie_keyword' table
 -- -----------------------------------------------------
@@ -305,7 +282,6 @@ SELECT DISTINCT movie_id, keyword_id
 FROM keyword_long
 JOIN keywords ON keyword_long.keywords_long = keywords.keyword;
 DROP TABLE IF EXISTS keyword_long;
-
 -- -----------------------------------------------------
 -- Filling the remaining fields in 'movies' table
 -- -----------------------------------------------------
@@ -316,7 +292,6 @@ SET m.director_id = d.director_id;
 UPDATE movies AS m
 JOIN languages AS l ON m.language_ = l.language
 SET m.language_id = l.language_id;
-
 -- -----------------------------------------------------
 -- Dropping the now unecessary fields from 'movies' table
 -- -----------------------------------------------------
@@ -325,24 +300,19 @@ DROP COLUMN language_;
 
 ALTER TABLE movies
 DROP COLUMN director;
-
 -- -----------------------------------------------------
 -- Dropping the now unecessary original data
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS data_1;
-
-
 -- -----------------------------------------------------
 -- Grabbing the company data from the original "json"
 -- -----------------------------------------------------
-
 -- Create a new table to store extracted data
 CREATE TABLE extracted_company_data (
     movie_id INT,
     company_name VARCHAR(255),
     company_id INT
 );
-
 -- Insert extracted data into the new table
 INSERT INTO extracted_company_data (movie_id, company_name, company_id)
 SELECT
@@ -360,20 +330,15 @@ SELECT
         ) AS DOUBLE
     ) AS company_id
 FROM data_2;
-
-
-
 -- -----------------------------------------------------
 -- Grabbing the country data from the original "json"
 -- -----------------------------------------------------
-
 -- Create a new table to store extracted data
 CREATE TABLE extracted_country_data (
     movie_id INT,
     country_name VARCHAR(255),
     country_id VARCHAR(255)
 );
-
 -- Insert extracted data into the new table
 INSERT INTO extracted_country_data (movie_id, country_id, country_name)
 SELECT
@@ -390,29 +355,24 @@ SELECT
             position('}' IN SUBSTRING(production_countries, position('"name": ' IN production_countries) + 8)) - 1
     ) AS country_id
 FROM data_2;
-
 -- -----------------------------------------------------
 -- Stripping the country data of quotations
 -- -----------------------------------------------------
 UPDATE extracted_country_data
 SET country_name = SUBSTRING(country_name, 2, LENGTH(country_name) - 2)
 WHERE country_name LIKE '"%"';
-
 -- -----------------------------------------------------
 -- Filling the 'company' table with the extracted company data
 -- -----------------------------------------------------
 INSERT INTO companies (company, company_id)
 SELECT DISTINCT company_name, company_id
 FROM extracted_company_data;
-
 -- -----------------------------------------------------
 -- Filling the 'country' table with the extracted country data
 -- -----------------------------------------------------
 INSERT INTO countries (country, country_id)
 SELECT DISTINCT country_name, country_id
 FROM extracted_country_data;
-
-
 -- -----------------------------------------------------
 -- Filling the 'movie_company' table
 -- -----------------------------------------------------
@@ -420,7 +380,6 @@ INSERT INTO movie_company (movie_id, company_id)
 SELECT m.movie_id, company_id
 FROM movies m 
 JOIN extracted_company_data e ON m.movie_id = e.movie_id;
-
 -- -----------------------------------------------------
 -- Filling the 'movie_company' table
 -- -----------------------------------------------------
@@ -428,14 +387,15 @@ INSERT INTO movie_country (movie_id, country_id)
 SELECT m.movie_id, e.country_id
 FROM movies m 
 JOIN extracted_country_data e ON m.movie_id = e.movie_id;
-
 -- -----------------------------------------------------
 -- Cleaning up extraneous tables
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS data_2;
 DROP TABLE IF EXISTS extracted_company_data;
 DROP TABLE IF EXISTS extracted_country_data;
-
+-- -----------------------------------------------------
+-- Database creation complete
+-- -----------------------------------------------------
 
 
 
