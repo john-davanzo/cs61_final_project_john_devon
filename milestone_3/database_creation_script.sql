@@ -172,7 +172,6 @@ FIELDS TERMINATED BY ','
 ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 LINES;
-
 -- data_2
 LOAD DATA LOCAL INFILE 'C:/Users/devon/Documents/GitHub/cs61_final_project_john_devon/data/data_2.csv'
 -- LOAD DATA LOCAL INFILE '../data/data_2.csv'
