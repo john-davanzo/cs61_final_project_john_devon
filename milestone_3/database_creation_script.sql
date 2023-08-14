@@ -164,15 +164,12 @@ CREATE TABLE IF NOT EXISTS data_2(
 -- -----------------------------------------------------
 -- data_1
 SET GLOBAL local_infile = 1;
--- NOTE*** WE PROBABLY WANT TO FIGURE OUT HOW TO MAKE THIS THE RELATIVE PATH INSTEAD OF ABSOLUTE
 LOAD DATA LOCAL INFILE '/Users/johndavanzo/Documents/GitHub/cs61_final_project_john_devon/data/data_1.csv'
--- LOAD DATA LOCAL INFILE '../data/data_1.csv'
 INTO TABLE data_1
 FIELDS TERMINATED BY ','
 ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 LINES;
-
 -- data_2
 LOAD DATA LOCAL INFILE '/Users/johndavanzo/Documents/GitHub/cs61_final_project_john_devon/data/data_2.csv'
 INTO TABLE data_2
