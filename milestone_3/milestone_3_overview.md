@@ -6,6 +6,9 @@ Before importing the data to MySQL workbench, we filtered out fields from the or
 
 ## Import Method
 We were unable to utilize the Table Import Wizard built into MySQLWorkbench because of the inconsistent nature of the formatting of our original data. Instead, we manually set the parameters for import using the `LOAD DATA LOCAL INFILE` command in SQL. 
+
+* In order to use this command with the local mysql connection, we had to add this option in the advanced tab of our connection settings: `OPT_LOCAL_INFILE=1`
+
 ## Import Code
 The general syntax for how we loaded our data is as follows:
 ```
@@ -17,6 +20,10 @@ ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 LINES;
 ```
+
+* In `database_creation_script.sql`, the paths for both data_1.csv and data_2.csv must be absolute paths, not relative paths to these data files. So in order to run these scripts on your local machine, you must change these paths to be absolute paths pointing to the data files. Additionally, mySql requires that all slashes in the path be forward slashes.
+* For example: `/Users/name/Desktop/data_1.csv`, `C:/Documents/data/data_2.csv`
+
 ## Decomposition After Importation
 * Handling JSON text in `production_companies` and `production_countries` fields
     * Given the inconsistent nature of the JSON text, we decided to write a script to decompose the JSON text as a varchar object. The general syntax for the script we wrote is as follows:
