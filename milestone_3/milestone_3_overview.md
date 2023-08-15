@@ -1,6 +1,37 @@
 # COSC 61 Final Project - Movie Analysis Database Creation
 Below are the details of how we imported and prepared our data as well as how we built our database.
 
+## Schema Creation in MySQL
+Schema creation is done through the `database_creation_script.sql`. This code was generated through running `SHOW CREATE TABLE` on all of the tables we had created and modifying slightly their foreign key references.
+
+Here are screenshots of the schema from these commands:
+
+`companies`
+![Alt text](img/image.png)
+`countries`
+![Alt text](img/image-1.png)
+`directors`
+![Alt text](img/image-2.png)
+`genres`
+![Alt text](img/image-3.png)
+`keywords`
+![Alt text](img/image-4.png)
+`languages`
+![Alt text](img/image-5.png)
+`movie_company`
+![Alt text](img/image-6.png)
+`movie_country`
+![Alt text](img/image-7.png)
+`movie_genre`
+![Alt text](img/image-8.png)
+`movie_keyword`
+![Alt text](img/image-9.png)
+`movies`
+![Alt text](img/image-10.png)
+`outcomes`
+![Alt text](img/image-11.png)
+
+
 ## Pre Importation
 Before importing the data to MySQL workbench, we filtered out fields from the original dataset that we did not plan on using in our database for the sake of simplicity. We also decomposed the data into two files, `data_1` and `data_2`. `data_1` contained the general attributes (`index`, `budget`, `keywords`, `original_language`, `overview`, `popularity`, `release_data`, `revenue`, `runtime`, `title`, `vote_average`, `vote_count`, `director`) while `data_2` contained only the fields in json format (`production_companies`, `production_countries`) in addition to `index`, allowing for more careful and nuanced inspection and decomposition of the json text.
 
@@ -80,5 +111,6 @@ IGNORE 1 LINES;
 * Removed the quotation marks from the `country_name` field
 * Because of the way the json was parsed, a blank country and blank company were created. To solve this problem, we removed them at the end of the database creation script
 
-
-
+## Initial Query
+Our first query answering the question "Which movie genres are most popular?" is in `database_queries.sql`. Here are the results:
+![Alt text](img/queryResults.png)
