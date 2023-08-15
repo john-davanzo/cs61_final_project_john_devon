@@ -406,19 +406,17 @@ DROP TABLE IF EXISTS extracted_country_data;
 -- Database creation complete
 -- -----------------------------------------------------
 
+-- -----------------------------------------------------
+-- Delete empty data
+-- -----------------------------------------------------
 
+SET SQL_SAFE_UPDATES = 0;
 
+DELETE FROM movie_company WHERE company_id = 0;
+DELETE FROM companies WHERE company = "";
 
+DELETE FROM movie_country WHERE country_id = "";
+DELETE FROM countries WHERE country = "";
 
-
-
-
-
-
-
-
-
-
-
-
+SET SQL_SAFE_UPDATES = 1;
 

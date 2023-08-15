@@ -1,11 +1,11 @@
-# COSC 61 Final Project - Movie Analysis Database Build Plan
+# COSC 61 Final Project - Movie Analysis Database Creation
 Below are the details of how we imported and prepared our data as well as how we built our database.
 
 ## Pre Importation
 Before importing the data to MySQL workbench, we filtered out fields from the original dataset that we did not plan on using in our database for the sake of simplicity. We also decomposed the data into two files, `data_1` and `data_2`. `data_1` contained the general attributes (`index`, `budget`, `keywords`, `original_language`, `overview`, `popularity`, `release_data`, `revenue`, `runtime`, `title`, `vote_average`, `vote_count`, `director`) while `data_2` contained only the fields in json format (`production_companies`, `production_countries`) in addition to `index`, allowing for more careful and nuanced inspection and decomposition of the json text.
 
 ## Import Method
-We were unable to utilize the Table Import Wizard built into MySQLWorkbench because of the inconsistent nature of the formatting of our original data. Instead, we manually set the parameters for inport using the `LOAD DATA LOCAL INFILE` command in SQL. 
+We were unable to utilize the Table Import Wizard built into MySQLWorkbench because of the inconsistent nature of the formatting of our original data. Instead, we manually set the parameters for import using the `LOAD DATA LOCAL INFILE` command in SQL. 
 ## Import Code
 The general syntax for how we loaded our data is as follows:
 ```
@@ -70,6 +70,8 @@ IGNORE 1 LINES;
 
 ## General Cleaning
 *  Cleaned the `genres` field so that 'science fiction' is read as 'science_fiction' rather than 'science' and 'fiction'
-* Removed the quotaiton marks from the `country_name` field
+* Removed the quotation marks from the `country_name` field
+* Because of the way the json was parsed, a blank country and blank company were created. To solve this problem, we removed them at the end of the database creation script
+
 
 

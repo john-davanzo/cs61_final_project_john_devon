@@ -27,4 +27,5 @@ This repo contains the materials for the final project of Devon Starr and John D
 3. Do movies with high spend usually have proportionately higher returns?
 4. How did the Covid pandemic impact movie revenue in different countries?
 
-## Link to [Milestone 2](database_build_plan.md)
+## Link to [Milestone 2](milestone_2/database_build_plan.md)
+## Link to [Milestone 3](milestone_3/milestone_3_overview.md)
