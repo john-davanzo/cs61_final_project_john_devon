@@ -1,4 +1,4 @@
-# COSC 61 Final Project - Movie Analysis Database Creation
+# COSC 61 Final Project - Movie Analysis Database Implementation Details
 Below are the details of how we imported and prepared our data as well as how we built our database.
 
 ## Schema Creation in MySQL
