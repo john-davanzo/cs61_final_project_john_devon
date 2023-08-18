@@ -4,9 +4,8 @@ import path from 'path';
 import morgan from 'morgan';
 import routes from './routes';
 import sshTunnelMysqlConnection from './mysql';
-// import session from 'express-session';
 
-const appUrl = 'http://localhost:3000';
+const frontendUrl = 'http://localhost:3000';
 
 const cookieParser = require('cookie-parser');
 
@@ -18,7 +17,7 @@ app.use(cookieParser());
 app.use(session({ secret: 'iuqgf78g2bc', saveUninitialized: true, resave: true }));
 
 // enable/disable cross origin resource sharing if necessary
-app.use(cors({ origin: appUrl, credentials: true }));
+app.use(cors({ origin: frontendUrl, credentials: true }));
 
 // enable/disable http request logging
 app.use(morgan('dev'));

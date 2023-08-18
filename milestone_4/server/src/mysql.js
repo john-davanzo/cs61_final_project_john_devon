@@ -3,17 +3,14 @@ import { Client } from 'ssh2';
 import fs from 'fs';
 import path from 'path';
 
-const key = fs.readFileSync(path.join(__dirname, '/movies_key.pem'));
-// const key = fs.readFileSync(path.join(__dirname, '/devonstarr-gc-key.pem'));
-
-// console.dir(key);
+const key = fs.readFileSync(path.join(__dirname, '/devonstarr-gc-key.pem')); // absolute path to pem key for ssh'ing into EC2 instance
 
 const sshTunnelMysqlConnection = async () => {
   return new Promise((resolve, reject) => {
     const sshConfig = {
-      host: '3.228.68.244', //  54.82.152.133
-      port: 22,
-      username: 'ubuntu',
+      host: '34.207.136.197', // public ip of EC2 instance
+      port: 22, // ssh port
+      username: 'ubuntu', // default username for EC2 instances
       privateKey: key
     };
 
@@ -29,10 +26,10 @@ const sshTunnelMysqlConnection = async () => {
           if (err) reject(err);
 
           const connection = await mysql.createConnection({
-            host: '127.0.0.1',
-            user: 'root',
-            password: 'bananasurprise53!',
-            database: 'movies',
+            host: '127.0.0.1', // ip of database server within the ssh tunnel, i.e. localhost
+            user: 'root', // user name for database server
+            password: 'bananasurprise53!', // password for database server
+            database: 'movies', // default database to use
             stream: stream
           });
 
@@ -42,7 +39,5 @@ const sshTunnelMysqlConnection = async () => {
     }).connect(sshConfig);
   });
 };
-
-// const connection = await sshTunnelMysqlConnection();
 
 export default sshTunnelMysqlConnection;

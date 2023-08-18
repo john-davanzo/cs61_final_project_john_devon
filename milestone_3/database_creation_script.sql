@@ -163,6 +163,10 @@ CREATE TABLE IF NOT EXISTS data_2(
 -- Loading in the data
 -- -----------------------------------------------------
 -- data_1
+
+SET GLOBAL net_read_timeout=10000;  -- This is just an example value, adjust as needed.
+SET GLOBAL net_write_timeout=10000; -- This is just an example value, adjust as needed.
+
 SET GLOBAL local_infile = 1;
 -- NOTE*** WE PROBABLY WANT TO FIGURE OUT HOW TO MAKE THIS THE RELATIVE PATH INSTEAD OF ABSOLUTE
 LOAD DATA LOCAL INFILE 'C:/Users/devon/Documents/GitHub/cs61_final_project_john_devon/data/data_1.csv'

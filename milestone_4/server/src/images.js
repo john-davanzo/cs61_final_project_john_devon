@@ -1,6 +1,4 @@
-
-
-const apiPath = 'https://api.pexels.com/v1/search';
+const apiPath = 'https://api.pexels.com/v1/search'; // this api is used to get images based on a query
 const apiKey = 'Dvl1NF0oTMVTw1drc0yaJv4Qdgo5djJEya1sYGMJ69VR6pllXfBRjOUI';
 
 const getImage = async (movieTitle) => { 
@@ -10,7 +8,7 @@ const getImage = async (movieTitle) => {
     }
   });
   const json = await response.json();
-  if (!json.photos || !json.photos[0]) return 'https://picsum.photos/200/300';
+  if (!json.photos || !json.photos[0]) return 'https://picsum.photos/200/300'; // if no image is found, return a random image
   return json.photos[0].src.medium;
 };
 

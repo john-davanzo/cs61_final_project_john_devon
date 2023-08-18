@@ -15,9 +15,10 @@ function numberWithCommas(x) {
 }
 
 const Movie = ({ movie, finished, metric, answer }) => {
-  // console.log(units);
+  
   const [done, setDone] = useState(finished);
 
+  // returns the metric info if the movie is done, otherwise returns the overview and answer buttons
   const renderInfo = () => {
     if (done) return (
       <motion.div  key="finished" initial={{opacity: 1}} exit={{opacity: 0}} className="movieInfo" >
