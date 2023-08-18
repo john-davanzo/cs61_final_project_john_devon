@@ -1,4 +1,4 @@
--- -----------------------------------------------------
+ -- -----------------------------------------------------
 -- This script is meant to be run in its entirety. 
 -- Running the entire script will fully reset and rebuild the database
 -- -----------------------------------------------------
