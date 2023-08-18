@@ -1,5 +1,6 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Metrics from './metrics';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const units = {
   [Metrics.RUNTIME]: 'minutes',
@@ -9,23 +10,28 @@ const units = {
 
 };
 
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
 const Movie = ({ movie, finished, metric, answer }) => {
   // console.log(units);
-
+  const [done, setDone] = useState(finished);
 
   const renderInfo = () => {
-    if (finished) return (
-      <div className="movieInfo">
+    if (done) return (
+      <motion.div  key="finished" initial={{opacity: 1}} exit={{opacity: 0}} className="movieInfo" >
         <div className="metricTitle">has a {metric} of</div>
-        <div className="metric">{movie[metric]}</div>
+        <div className="metric">{metric === Metrics.BUDGET || metric === Metrics.REVENUE ? numberWithCommas(movie[metric]) : movie[metric]}</div>
         <div className="units">{units[metric]}</div>
-      </div>
+      </motion.div>
     );
     return (
-      <div className="movieInfo">
-        <button onClick={_ => answer(1)}>Higher</button>
-        <button onClick={_ => answer(0)}>Lower</button>
-      </div>
+      <motion.div key="notFinished" initial={{opacity: 1}} exit={{opacity: 0}} className="movieInfo">
+        <div className="overview">"{movie.overview}"</div>
+        <button onClick={_ => answer(1, setDone)}>Higher</button>
+        <button onClick={_ => answer(0, setDone)}>Lower</button>
+      </motion.div>
     );
   }
 
@@ -38,7 +44,11 @@ const Movie = ({ movie, finished, metric, answer }) => {
     >
       <div className="movieContent">
         <div className="title">{movie.title}</div>
-        {renderInfo()}
+        <div className="contentHolder">
+          <AnimatePresence>
+            {renderInfo()}
+          </AnimatePresence>
+        </div>
       </div>
     </div>
   )

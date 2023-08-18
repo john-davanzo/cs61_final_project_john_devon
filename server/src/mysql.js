@@ -11,7 +11,7 @@ const key = fs.readFileSync(path.join(__dirname, '/movies_key.pem'));
 const sshTunnelMysqlConnection = async () => {
   return new Promise((resolve, reject) => {
     const sshConfig = {
-      host: '54.242.200.185', //  54.82.152.133
+      host: '3.228.68.244', //  54.82.152.133
       port: 22,
       username: 'ubuntu',
       privateKey: key
