@@ -1,0 +1,124 @@
+country_name,genre_name,average_popularity
+Afghanistan,drama,1.447734
+Argentina,mystery,25.894065
+Aruba,adventure,2.706207
+Aruba,action,2.706207
+Aruba,thriller,2.706207
+Australia,science_fiction,58.34456631249999
+Austria,war,32.445895
+Bahamas,action,31.036
+Bahamas,adventure,31.036
+Belgium,action,25.002715
+Belgium,crime,25.002715
+Bhutan,foreign,0.749699
+Bhutan,adventure,0.749699
+Bhutan,drama,0.749699
+Bolivia,adventure,5.223096
+Bolivia,action,5.223096
+Bolivia,western,5.223096
+"Bosnia and Herzegovina",adventure,8.048305
+"Bosnia and Herzegovina",action,8.048305
+"Bosnia and Herzegovina",thriller,8.048305
+"Bosnia and Herzegovina",drama,8.048305
+Brazil,horror,27.684779
+Bulgaria,crime,39.1850185
+Cameroon,documentary,0.025211
+Canada,adventure,52.01422124137934
+China,science_fiction,59.18336575000001
+Cyprus,war,1.136568
+Cyprus,action,1.136568
+Cyprus,thriller,1.136568
+"Czech Republic",adventure,35.504403571428576
+Denmark,horror,38.150787
+"Dominican Republic",crime,0.080105
+"Dominican Republic",drama,0.080105
+Ecuador,thriller,3.027892
+Ecuador,crime,3.027892
+Ecuador,drama,3.027892
+Fiji,adventure,9.705589
+Fiji,drama,9.705589
+Fiji,romance,9.705589
+Finland,family,45.720894
+Finland,animation,45.720894
+France,science_fiction,43.69370084615385
+Germany,fantasy,41.91190773684212
+Greece,drama,26.079072500000002
+Guadaloupe,drama,0.007254
+Guyana,drama,0.030253
+"Hong Kong",animation,24.857079
+Hungary,crime,22.520842
+Hungary,thriller,22.520842
+Hungary,mystery,22.520842
+Iceland,drama,60.246978
+India,fantasy,44.19092
+Indonesia,action,40.285095
+Indonesia,crime,40.285095
+Indonesia,thriller,40.285095
+Iran,family,7.072118
+Iran,comedy,7.072118
+Ireland,animation,28.670193
+Israel,animation,14.08251
+Israel,war,14.08251
+Italy,mystery,48.7529495
+Jamaica,fantasy,145.847379
+Japan,fantasy,37.972261
+Kenya,drama,0.327794
+"Kyrgyz Republic",action,0.077873
+"Kyrgyz Republic",drama,0.077873
+Lebanon,drama,4.554574
+Lebanon,comedy,4.554574
+Lebanon,romance,4.554574
+"Libyan Arab Jamahiriya",action,2.864979
+"Libyan Arab Jamahiriya",war,2.864979
+"Libyan Arab Jamahiriya",history,2.864979
+Luxembourg,adventure,6.760922
+Luxembourg,comedy,6.760922
+Luxembourg,romance,6.760922
+Malaysia,history,13.327372
+Malaysia,romance,13.327372
+Malta,thriller,42.526529
+Malta,action,42.526529
+Malta,drama,42.526529
+Malta,war,42.526529
+Malta,history,42.526529
+Mexico,science_fiction,60.662504999999996
+Morocco,drama,1.972668
+Netherlands,romance,18.026267
+"New Zealand",animation,89.938296
+"New Zealand",mystery,89.938296
+Norway,crime,47.651083
+Norway,thriller,47.651083
+Norway,mystery,47.651083
+Pakistan,family,0.060003
+Pakistan,comedy,0.060003
+Panama,drama,7.444189
+Peru,action,16.582709
+Peru,thriller,16.582709
+Philippines,action,54.81489
+Philippines,crime,54.81489
+Philippines,thriller,54.81489
+Philippines,drama,54.81489
+Poland,thriller,1.946715
+Poland,drama,1.946715
+Poland,horror,1.946715
+Romania,thriller,19.774543
+Romania,mystery,19.774543
+Russia,mystery,15.9382185
+Singapore,action,9.780588
+Singapore,thriller,9.780588
+Singapore,horror,9.780588
+Slovenia,drama,0.061248
+Slovenia,comedy,0.061248
+"South Africa",science_fiction,57.673932
+"South Korea",mystery,32.90689
+Spain,war,60.53171450000001
+Sweden,drama,7.253379
+Switzerland,drama,24.057866
+Thailand,crime,11.81832
+Turkey,adventure,1.465762
+Turkey,action,1.465762
+Turkey,drama,1.465762
+"United Arab Emirates",action,48.622278
+"United Arab Emirates",fantasy,48.622278
+"United Kingdom",science_fiction,48.09135521739131
+"United States of America",animation,47.65425247169809
