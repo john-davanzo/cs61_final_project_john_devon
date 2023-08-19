@@ -2,7 +2,6 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import Movie from './Movie';
 import Metrics, { randomMetric } from './metrics';
-import { AnimatePresence } from 'framer-motion';
 import LoseModal from './LoseModal';
 
 

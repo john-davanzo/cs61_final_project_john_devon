@@ -1,4 +1,4 @@
-# Project Milestone 2 - Movie Analysis Database Implementation Details
+# Project Milestone 3 - Database Implementation Details
 Below are the details of how we imported and prepared our data as well as how we built our database.
 
 ## Schema Creation in MySQL
@@ -7,28 +7,40 @@ Schema creation is done through the `database_creation_script.sql`. This code wa
 Here are screenshots of the schema from these commands:
 
 `companies`
+
 ![Alt text](img/image.png)
 `countries`
+
 ![Alt text](img/image-1.png)
 `directors`
+
 ![Alt text](img/image-2.png)
 `genres`
+
 ![Alt text](img/image-3.png)
 `keywords`
+
 ![Alt text](img/image-4.png)
 `languages`
+
 ![Alt text](img/image-5.png)
 `movie_company`
+
 ![Alt text](img/image-6.png)
 `movie_country`
+
 ![Alt text](img/image-7.png)
 `movie_genre`
+
 ![Alt text](img/image-8.png)
 `movie_keyword`
+
 ![Alt text](img/image-9.png)
 `movies`
+
 ![Alt text](img/image-10.png)
 `outcomes`
+
 ![Alt text](img/image-11.png)
 
 

@@ -2,6 +2,8 @@
 
 Our major database enhancement is a web game similar to [The Higher Lower Game](http://www.higherlowergame.com/) but instead uses movies and 4 different metrics about them as opposed to just Google searches.
 
+![](img/gameplay.gif)
+
 The milestone_4 folder contains the following folders related to our game:
 
 - `app/` — Frontend React app
