@@ -1,4 +1,4 @@
-# COSC 61 Final Project - Movie Analysis Database Build Plan
+# Project Milestone 2 - Movie Analysis Database Build Plan
 Below are the details of how we plan to implement our databse design in accordance with our preliminary ERD.
 
 ## Main Data

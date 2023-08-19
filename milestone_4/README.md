@@ -1,4 +1,4 @@
-# COSC 61 Final Project - Database Enhancement & Answers to Questions
+# Project Milestone 4 - Database Enhancement & Answers to Questions
 
 Our major database enhancement is a web game similar to [The Higher Lower Game](http://www.higherlowergame.com/) but instead uses movies and 4 different metrics about them as opposed to just Google searches.
 
