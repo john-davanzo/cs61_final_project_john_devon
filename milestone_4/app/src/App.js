@@ -5,7 +5,8 @@ import Metrics, { randomMetric } from './metrics';
 import LoseModal from './LoseModal';
 
 
-const backendUrl = 'http://localhost:9090';
+// const backendUrl = 'http://localhost:9090';
+const backendUrl = 'https://cs61johndevonbackend.onrender.com';
 
 
 function App() {

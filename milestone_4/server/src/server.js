@@ -5,7 +5,8 @@ import morgan from 'morgan';
 import routes from './routes';
 import sshTunnelMysqlConnection from './mysql';
 
-const frontendUrl = 'http://localhost:3000';
+// const frontendUrl = 'http://localhost:3000';
+const frontendUrl = 'https://cs61johndevon.onrender.com';
 
 const cookieParser = require('cookie-parser');
 
