@@ -110,6 +110,8 @@ time value of money, we adjust for 1.4% yearly devaluation of the USD.
 
 We use two blocks of code to answer this question. The first one calculates average movie revenue among movies which were released pre recession. The second does so for movies which were released during the recession. 
 
+
+Pre-Recession Average:
 ```
 SELECT AVG(revenue) * 1.014 AS average_pre_recession_movie_revenue
 FROM movies as m
@@ -119,6 +121,8 @@ WHERE country_id = 'US'
 AND release_date BETWEEN '2006-01-01' AND '2008-01-01';
 ```
 
+
+During-Recession Average:
 ```
 SELECT AVG(revenue) AS average_recession_movie_revenue
 FROM movies as m
