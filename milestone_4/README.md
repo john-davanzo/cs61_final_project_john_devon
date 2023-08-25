@@ -1,13 +1,13 @@
 # Project Milestone 4 - Database Enhancement & Answers to Questions
 
-Our major database enhancement is a web game similar to [The Higher Lower Game](http://www.higherlowergame.com/) but instead uses movies and 4 different metrics about them as opposed to just Google searches.
+Our major database enhancement is a web game similar to [The Higher Lower Game](http://www.higherlowergame.com/) but instead uses movies and 4 different metrics about them as opposed to just Google searches. We chose the four metrics which are quantitative to use in our higher/lower game. Those are `revenue `,  `popularity `, `budget`, and `runtime`. The backend of our game queries the database for a random movie and then pulls one of these four metrics randomly to display on the game interface. The rest is controlled on the front end, where the user selects whether they think the given movie has a higher or lower revenue, popularity, budget, or runtime than the one that is already displayed.
 
 ![](img/gameplay.gif)
 
 The milestone_4 folder contains the following folders related to our game:
 
 - `app/` — Frontend React app
-  - grabs three random movies and your high score from the backend upon loading
+  - grabs three random movies and your high score from the backend upon loading. Holding one in reserve limits any downtime that occurs between rounds
   - if your higher lower answer is correct, it grabs a new movie from the backend, updates your score and the metric you're currently judging on
   - if your answer is incorrect, a game over message is shown with your score, and overwrites your high score if necessary.
 - `server/` — Express.js server
