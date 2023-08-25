@@ -107,6 +107,7 @@ time value of money, we adjust for 1.4% yearly devaluation of the USD.
 
 ![*loading*](img/preRecession.png)
 ![*loading*](img/recession.png)
+
 We use two blocks of code to answer this question. The first one calculates average movie revenue among movies which were released pre recession. The second does so for movies which were released during the recession. 
 
 ```
